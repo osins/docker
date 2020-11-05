@@ -1,0 +1,2 @@
+#!/bin/bash
+docker network create -d overlay --attachable --subnet=10.10.0.0/16 --ip-range=10.10.0.0/24 --gateway=10.10.0.254 keycloak_net

@@ -1,0 +1,6 @@
+#!/bin/bash
+docker volume create --driver local \
+    --opt type=nfs \
+    --opt o=addr=192.168.3.181,rw \
+    --opt device=:/root/swarm/conf/swarm/conf \
+    conf

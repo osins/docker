@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  atlas:
+    image: wangsying/atlas-sharding
+    ports: 
+      - 33061:3306
+      - 33062:3307    
+    networks: 
+      kc_net:
+        ipv4_address: 10.0.0.2    
+    volumes: 
+      - ./conf/default.cnf:/usr/local/mysql-proxy/conf/default.cnf
+  mysql:
+    image: mariadb:5.5.64
+    ports: 
+      - 3306:3306
+    networks:
+      kc_net:
+        ipv4_address: 10.0.0.3
+    environment:      
+      MYSQL_DATABASE: atlas
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      character-set-server: utf8mb4
+      collation-server: utf8mb4_unicode_ci
+    volumes: 
+      - ./data:/var/lib/mysql
+
+networks:
+  kc_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.0.0.1/24"
